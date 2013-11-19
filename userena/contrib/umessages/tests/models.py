@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
-from django.utils.text import truncate_words
+from django.utils.text import Truncator
 
 from userena.contrib.umessages.models import Message, MessageRecipient, MessageContact
 from userena.utils import get_user_model
@@ -36,7 +36,7 @@ class MessageModelTests(TestCase):
     def test_string_formatting(self):
         """ Test the human representation of a message """
         message = Message.objects.get(pk=1)
-        truncated_body = truncate_words(message.body, 10)
+        truncated_body = Truncator.words(message.body, 10)
         self.failUnlessEqual(message.__unicode__(),
                              truncated_body)
 
